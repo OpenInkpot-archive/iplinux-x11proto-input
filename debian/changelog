@@ -1,10 +1,16 @@
+x11proto-input (1.9.99.6-1) asimov; urgency=low
+
+  * First build for IPlinux.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Fri, 13 Mar 2009 15:29:15 +0600
+
 x11proto-input (1.9.99.4-1.oi1) asimov; urgency=low
 
   * OpenInkpot build.
 
  -- Mikhail Gusarov <dottedmag@dottedmag.net>  Mon, 15 Sep 2008 02:59:22 +0700
 
-x11proto-input (1.9.99.4-1) UNRELEASED; urgency=low
+x11proto-input (1.9.99.4-1) unstable; urgency=low
 
   [ Timo Aaltonen ]
   * New upstream release.

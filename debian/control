@@ -1,13 +1,12 @@
 Source: x11proto-input
-Section: gui
+Section: libdevel
 Priority: optional
 Maintainer: Mikhail Gusarov <dottedmag@dottedmag.net>
-Build-Depends: debhelper (>= 4), automake, libtool, xutils-dev
-XCS-Cross-Host-Build-Depends: debhelper (>= 4), automake, libtool, xutils-dev
-Standards-Version: 3.7.3
+Build-Depends: debhelper (>= 7), automake, autoconf, xorg-util-macros
+XCS-Cross-Host-Build-Depends: debhelper (>= 7), automake, autoconf, xorg-util-macros
+Standards-Version: 3.8.0
 
 Package: x11proto-input-dev
-Section: libdevel
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Pre-Depends: x11-common (>= 1:7.0.0)
