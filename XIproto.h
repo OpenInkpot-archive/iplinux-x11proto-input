@@ -55,6 +55,7 @@ SOFTWARE.
 #define Time CARD32
 #define KeyCode CARD8
 #define Mask CARD32
+#define Atom CARD32
 
 /*********************************************************
  *
@@ -72,7 +73,7 @@ SOFTWARE.
 
 #define IEVENTS         19       /* does NOT include generic events */
 #define IERRORS         5
-#define IREQUESTS       51
+#define IREQUESTS       49
 
 #define CLIENT_REQ      1
 
@@ -164,22 +165,18 @@ struct tmask
 #define X_ChangeDeviceControl		35
 /* XI 1.5 */
 #define X_ListDeviceProperties          36
-#define X_QueryDeviceProperty           37
-#define X_ConfigureDeviceProperty       38
-#define X_ChangeDeviceProperty          39
-#define X_DeleteDeviceProperty          40
-#define X_GetDeviceProperty             41
+#define X_ChangeDeviceProperty          37
+#define X_DeleteDeviceProperty          38
+#define X_GetDeviceProperty             39
 /* XI 2 */
-#define X_QueryDevicePointer            42
-#define X_WarpDevicePointer             43
-#define X_ChangeDeviceCursor            44
-#define X_ChangeDeviceHierarchy         45
-#define X_ChangeWindowAccess            46
-#define X_QueryWindowAccess             47
-#define X_SetClientPointer              48
-#define X_GetClientPointer              49
-#define X_XiSelectEvent                 50
-#define X_ExtendedGrabDevice            51
+#define X_QueryDevicePointer            40
+#define X_WarpDevicePointer             41
+#define X_ChangeDeviceCursor            42
+#define X_ChangeDeviceHierarchy         43
+#define X_SetClientPointer              44
+#define X_GetClientPointer              45
+#define X_XiSelectEvent                 46
+#define X_ExtendedGrabDevice            47
 
 /*********************************************************
  *
@@ -1475,55 +1472,6 @@ typedef struct {
 
 /*********************************************************
  *
- * QueryDeviceProperty.
- *
- */
-
-typedef struct {
-    CARD8       reqType;        /* input extension major opcode */
-    CARD8       ReqType;        /* always X_QueryDeviceProperty */
-    CARD16      length B16;
-    Atom        property B32;
-    CARD8       deviceid;
-    CARD8       pad0;
-    CARD16      pad1 B16;
-} xQueryDevicePropertyReq;
-
-typedef struct {
-    CARD8       repType;        /* X_Reply                        */
-    CARD8       RepType;        /* always X_QueryDeviceProperty */
-    CARD16      sequenceNumber B16;
-    CARD32      length B32;
-    BOOL        pending;
-    BOOL        range;
-    BOOL        immutable;
-    BOOL        fromClient;     /* TRUE if allocated by client */
-    CARD32      pad2 B32;
-    CARD32      pad3 B32;
-    CARD32      pad4 B32;
-    CARD32      pad5 B32;
-    CARD32      pad6 B32;
-} xQueryDevicePropertyReply;
-
-/*********************************************************
- *
- * ConfigureDeviceProperty.
- *
- */
-
-typedef struct {
-    CARD8       reqType;        /* input extension major opcode */
-    CARD8       ReqType;        /* always X_ConfigureDeviceProperty */
-    CARD16      length B16;
-    Atom        property B32;
-    CARD8       deviceid;
-    BOOL        pending;
-    BOOL        range;
-    CARD8       pad;
-} xConfigureDevicePropertyReq;
-
-/*********************************************************
- *
  * ChangeDeviceProperty.
  *
  */
@@ -1577,8 +1525,7 @@ typedef struct {
 #else
     BOOL        delete;
 #endif
-    BOOL        pending;
-    CARD8       pad;
+    CARD16      pad;
 } xGetDevicePropertyReq;
 
 typedef struct {
@@ -1728,56 +1675,6 @@ typedef struct {
     CARD8       newMaster;      /* id of new master device */
     CARD8       pad0;
 } xChangeAttachmentInfo;
-
-
-/**********************************************************
- *
- * ChangeWindowAccess.
- *
- */
-
-typedef struct {
-    CARD8       reqType;        /* input extension major opcode */
-    CARD8       ReqType;        /* Always X_ChangeWindowAccess */
-    CARD16      length B16;
-    Window      win B32;
-    CARD8       npermit;       /* number of devices for permit rule */
-    CARD8       ndeny;         /* number of devices for deny rule */
-    CARD8       defaultRule;   /* default rule */
-    CARD8       clear;         /* WindowAccessClearPerm,
-                                  WindowAccessClearDeny,
-                                  WindowAccessClearRule,
-                                  WindowAccessClearAll */
-} xChangeWindowAccessReq;
-
-/**********************************************************
- *
- * QueryWindowAccess
- *
- */
-
-typedef struct {
-    CARD8       reqType;        /* input extension major code */
-    CARD8       ReqType;        /* always X_QueryWindowAccess */
-    CARD16      length B16;
-    Window      win B32;
-} xQueryWindowAccessReq;
-
-typedef struct {
-    CARD8       repType;        /* input extension major opcode */
-    CARD8       RepType;        /* Always X_QueryWindowAccess */
-    CARD16      sequenceNumber B16;
-    CARD32      length B32;
-    CARD8       defaultRule;    /* default rule setting */
-    CARD8       npermit;        /* number of devices in permit */
-    CARD8       ndeny;          /* number of devices in deny */
-    CARD8       pad0; 
-    CARD32      pad1 B32;
-    CARD32      pad2 B32;
-    CARD32      pad3 B32;
-    CARD32      pad4 B32;
-    CARD32      pad5 B32;
-} xQueryWindowAccessReply;
 
 
 
@@ -2120,18 +2017,18 @@ typedef deviceEnterNotify deviceLeaveNotify;
 
 typedef struct
     {
-    BYTE        type;                /* always GenericEvent */
+    BYTE        type;
     BYTE        state;               /* NewValue or Deleted */
     CARD16      sequenceNumber B16;
     CARD32      time B32;
     Atom        atom B32;            /* affected property */
-    CARD8       deviceid;            /* id of device */
-    CARD8       pad0;
-    CARD16      pad1 B16;
+    CARD32      pad0 B32;
+    CARD32      pad1 B32;
     CARD32      pad2 B32;
     CARD32      pad3 B32;
-    CARD32      pad4 B32;
-    CARD32      pad5 B32;
+    CARD16      pad5 B16;
+    CARD8       pad4;
+    CARD8       deviceid;            /* id of device */
     } devicePropertyNotify;
 
 
@@ -2191,5 +2088,6 @@ typedef struct
 #undef Time
 #undef KeyCode
 #undef Mask
+#undef Atom
 
 #endif
