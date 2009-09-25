@@ -112,17 +112,6 @@ SOFTWARE.
 #define sz_xDeleteDevicePropertyReq             12
 #define sz_xGetDevicePropertyReq                24
 #define sz_xGetDevicePropertyReply              32
-#define sz_xQueryDevicePointerReq               12
-#define sz_xQueryDevicePointerReply             32
-#define sz_xWarpDevicePointerReq                28
-#define sz_xChangeDeviceCursorReq               16
-#define sz_xChangeDeviceHierarchyReq            8
-#define sz_xSetClientPointerReq                 12
-#define sz_xGetClientPointerReq                 8
-#define sz_xGetClientPointerReply               32
-#define sz_xXiSelectEventReq                    16
-#define sz_xExtendedGrabDeviceReq               28
-#define sz_xExtendedGrabDeviceReply             32
 
 #define INAME		"XInputExtension"
 
@@ -146,6 +135,8 @@ SOFTWARE.
 #define XI_FOOTMOUSE	"FOOTMOUSE"
 #define XI_JOYSTICK	"JOYSTICK"
 
+/* Indices into the versions[] array (XExtInt.c). Used as a index to
+ * retrieve the minimum version of XI from _XiCheckExtInit */
 #define Dont_Check			0
 #define XInput_Initial_Release		1
 #define XInput_Add_XDeviceBell		2
@@ -153,7 +144,7 @@ SOFTWARE.
 #define XInput_Add_XChangeDeviceControl	4
 #define XInput_Add_DevicePresenceNotify	5
 #define XInput_Add_DeviceProperties	6
-#define XInput_2			7
+/* DO NOT ADD TO HERE -> XI2 */
 
 #define XI_Absent		0
 #define XI_Present		1
@@ -176,9 +167,6 @@ SOFTWARE.
 #define XI_Add_DeviceProperties_Major		1
 #define XI_Add_DeviceProperties_Minor		5
 
-#define XI_2_Major				2
-#define XI_2_Minor				0
-
 #define DEVICE_RESOLUTION	1
 #define DEVICE_ABS_CALIB        2
 #define DEVICE_CORE             3
@@ -197,7 +185,6 @@ SOFTWARE.
 #define XKEYBOARD		1
 
 #define UseXKeyboard		0xFF
-#define IsFloating              (1 << 7)
 
 #define IsXPointer		0
 #define IsXKeyboard		1
@@ -285,25 +272,12 @@ SOFTWARE.
 #define DeviceUnrecoverable      4
 #define DeviceControlChanged     5
 
-
-/* ChangeHierarchy constants */
-#define CH_CreateMasterDevice    1
-#define CH_RemoveMasterDevice    2
-#define CH_ChangeAttachment      3
-
-#define AttachToMaster           1
-#define Floating                 2
-
 /* XI Errors */
 #define XI_BadDevice	0
 #define XI_BadEvent	1
 #define XI_BadMode	2
 #define XI_DeviceBusy	3
 #define XI_BadClass	4
-
-/* GE masks */
-#define XI_DeviceHierarchyChangedMask  (1 << 0)
-#define XI_DeviceClassesChangedMask    (1 << 1)
 
 /*
  * Make XEventClass be a CARD32 for 64 bit servers.  Don't affect client
