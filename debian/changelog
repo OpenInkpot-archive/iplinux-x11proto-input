@@ -1,3 +1,10 @@
+x11proto-input (1.9.99.902-1) asimov; urgency=low
+
+  * New upstream release.
+  * Packaging cleanup.
+
+ -- Mikhail Gusarov <dottedmag@dottedmag.net>  Sat, 26 Sep 2009 03:06:09 +0700
+
 x11proto-input (1.9.99.6-1) asimov; urgency=low
 
   * First build for IPlinux.
